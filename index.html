@@ -4,6 +4,16 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#ffffff">
+  <script>
+    try{
+      const saved=localStorage.getItem('theme');
+      const prefersDark=window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const theme=(saved==='night'||saved==='day')?saved:(prefersDark?'night':'day');
+      document.documentElement.dataset.theme=theme;
+      const themeColor=document.querySelector('meta[name="theme-color"]');
+      if(themeColor)themeColor.content=theme==='night'?'#0f0f0f':'#ffffff';
+    }catch(e){}
+  </script>
   <meta name="description" content="A simple personal page about Anas — games, coding, and science.">
   <title>Anas — About me</title>
   <style>
@@ -141,7 +151,6 @@
         <div class="gallery">
           <article class="game"><a class="game-art" href="https://en.wikipedia.org/wiki/The_Legend_of_Zelda:_Majora%27s_Mask" target="_blank" rel="noreferrer" aria-label="Majora’s Mask, game details"><span class="missing" aria-hidden="true">☾</span><img loading="lazy" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRCSt87EHJtEr8KiB0hdCAIqLXf3b8IBExDbYUGwA0Jqw&amp;s=10" alt="Majora’s Mask cover art"></a><div class="game-title"><strong data-en="Majora’s Mask" data-ar="قناع ماجورا">Majora’s Mask</strong><small data-en="Action-Adventure" data-ar="أكشن ومغامرة">Action-Adventure</small><p class="game-love" data-en="I love Majora’s Mask because it gives a weird vibe that I love." data-ar="أحب قناع ماجورا لأن جوّه الغريب يعجبني.">I love Majora’s Mask because it gives a weird vibe that I love.</p></div></article>
           <article class="game"><a class="game-art" href="https://en.wikipedia.org/wiki/The_Legend_of_Zelda:_Breath_of_the_Wild" target="_blank" rel="noreferrer" aria-label="Breath of the Wild, game details"><span class="missing" aria-hidden="true">✧</span><img loading="lazy" src="https://en.wikipedia.org/wiki/Special:FilePath/The_Legend_of_Zelda_Breath_of_the_Wild.jpg" alt="Breath of the Wild cover art"></a><div class="game-title"><strong data-en="Breath of the Wild" data-ar="نفس البرية">Breath of the Wild</strong><small data-en="Action-Adventure" data-ar="أكشن ومغامرة">Action-Adventure</small></div></article>
-          <article class="game"><a class="game-art" href="https://en.wikipedia.org/wiki/Portal_2" target="_blank" rel="noreferrer" aria-label="Portal 2, game details"><span class="missing" aria-hidden="true">◎</span><img loading="lazy" src="https://thumb.wikimedia.org/wikipedia/en/thumb/f/f9/Portal2cover.jpg/250px-Portal2cover.jpg?utm_source=en.wikipedia.org&amp;utm_campaign=parser&amp;utm_content=thumbnail" alt="Portal 2 cover art"></a><div class="game-title"><strong data-en="Portal 2" data-ar="بورتال 2">Portal 2</strong><small data-en="Puzzle" data-ar="ألغاز">Puzzle</small></div></article>
           <article class="game"><a class="game-art" href="https://en.wikipedia.org/wiki/Minecraft" target="_blank" rel="noreferrer" aria-label="Minecraft, game details"><span class="missing" aria-hidden="true">▦</span><img loading="lazy" src="https://preview.redd.it/what-is-the-java-edition-seed-for-minecrafts-cover-art-v0-alwc1nswqdw51.png?width=767&amp;format=png&amp;auto=webp&amp;s=4d67aab7260383ca7b48bc5d5e8a0916dccdc2b3" alt="Minecraft cover art"></a><div class="game-title"><strong data-en="Minecraft" data-ar="ماينكرافت">Minecraft</strong><small data-en="Sandbox" data-ar="عالم مفتوح">Sandbox</small></div></article>
           <article class="game"><a class="game-art" href="https://en.wikipedia.org/wiki/Half-Life_(video_game)" target="_blank" rel="noreferrer" aria-label="Half-Life, game details"><span class="missing" aria-hidden="true">◎</span><img loading="lazy" src="https://en.wikipedia.org/wiki/Special:FilePath/Half-Life_Cover_Art.jpg" alt="Half-Life cover art"></a><div class="game-title"><strong data-en="Half-Life" data-ar="هالف-لايف">Half-Life</strong><small data-en="Shooter" data-ar="تصويب">Shooter</small></div></article>
           <article class="game"><a class="game-art" href="https://en.wikipedia.org/wiki/The_Binding_of_Isaac_(video_game)" target="_blank" rel="noreferrer" aria-label="The Binding of Isaac, game details"><span class="missing" aria-hidden="true">✦</span><img loading="lazy" src="https://cdn.cloudflare.steamstatic.com/steam/apps/113200/header.jpg" alt="The Binding of Isaac cover art"></a><div class="game-title"><strong data-en="The Binding of Isaac" data-ar="ذا بايندينق أوف آيزاك">The Binding of Isaac</strong><small data-en="Roguelike" data-ar="روجلايك">Roguelike</small><p class="game-love" data-en="Apollyon &lt;3" data-ar="أبولوين &lt;3">Apollyon &lt;3</p></div></article>
@@ -161,21 +170,23 @@
       const themeButton=document.getElementById('theme-toggle');
       const themeLabel=document.getElementById('theme-label');
       const languageButton=document.getElementById('language-toggle');
-      let theme='day';
+      const themeMeta=document.querySelector('meta[name="theme-color"]');
+      let theme=root.dataset.theme==='night'?'night':'day';
       let language='en';
+
+      function store(key,value){try{localStorage.setItem(key,value)}catch(e){}}
+      function saved(key){try{return localStorage.getItem(key)}catch(e){return null}}
 
       function labels(){
         themeLabel.textContent=theme==='night'?(language==='en'?'Dark':'ليلي'):(language==='en'?'Light':'نهاري');
         themeButton.firstChild.textContent=theme==='night'?'☾ ':'☼ ';
       }
-      function setTheme(){
-        theme=theme==='night'?'day':'night';
+      function paintTheme(){
         root.dataset.theme=theme;
-        document.querySelector('meta[name="theme-color"]').content=theme==='night'?'#0f0f0f':'#ffffff';
+        if(themeMeta)themeMeta.content=theme==='night'?'#0f0f0f':'#ffffff';
         labels();
       }
-      function setLanguage(){
-        language=language==='en'?'ar':'en';
+      function paintLanguage(){
         const rtl=language==='ar';
         root.lang=language;
         root.dir=rtl?'rtl':'ltr';
@@ -190,8 +201,13 @@
         languageButton.setAttribute('aria-label',rtl?'Switch to English':'التبديل إلى العربية');
         labels();
       }
-      themeButton.addEventListener('click',setTheme);
-      languageButton.addEventListener('click',setLanguage);
+      themeButton.addEventListener('click',()=>{theme=theme==='night'?'day':'night';store('theme',theme);paintTheme()});
+      languageButton.addEventListener('click',()=>{language=language==='en'?'ar':'en';store('lang',language);paintLanguage()});
+
+      const remembered=saved('lang');
+      if(remembered==='ar'||remembered==='en')language=remembered;
+      paintTheme();
+      if(language!=='en')paintLanguage();
     })();
     document.querySelectorAll('.game-art img').forEach(img=>{const placeholder=img.parentElement.querySelector('.missing');const hidePlaceholder=()=>{if(placeholder)placeholder.hidden=true};if(img.complete){if(img.naturalWidth)hidePlaceholder();else img.style.display='none'}else{img.addEventListener('load',hidePlaceholder,{once:true});img.addEventListener('error',()=>{img.style.display='none'},{once:true})}});
   </script>
