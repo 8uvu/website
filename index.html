@@ -69,6 +69,16 @@
     .chips{list-style:none;display:flex;flex-wrap:wrap;gap:10px;margin:0;padding:0}
     .chips li{border:1px solid var(--line);border-radius:99px;padding:9px 17px;font-size:17px;background:var(--bg)}
 
+    .socials{list-style:none;display:flex;flex-wrap:wrap;gap:10px;margin:0;padding:0}
+    .socials a,.socials button{display:inline-flex;align-items:center;gap:9px;border:1px solid var(--line);background:var(--bg);border-radius:99px;padding:11px 20px;font:14px var(--mono);transition:border-color .2s,transform .2s}
+    .socials a:hover,.socials button:hover{border-color:var(--accent);transform:translateY(-1px)}
+    .socials .glyph{font-size:15px;line-height:1}
+    .card .hint{margin-top:14px;color:var(--muted);font-size:16px}
+
+    .toast{position:fixed;left:50%;bottom:26px;z-index:9;max-width:calc(100% - 30px);transform:translate(-50%,14px);opacity:0;pointer-events:none;border:1px solid var(--accent);border-radius:14px;background:var(--surface);color:var(--text);box-shadow:var(--shadow);padding:13px 20px;font-size:15px;line-height:1.6;text-align:center;transition:opacity .25s,transform .25s}
+    .toast.show{opacity:1;transform:translate(-50%,0)}
+    .toast code{font:600 15px var(--mono);color:var(--accent)}
+
     .gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:16px}
     .game{overflow:hidden;border:1px solid var(--line);border-radius:16px;background:var(--bg);box-shadow:var(--shadow);transition:transform .2s,border-color .2s}
     .game:hover{transform:translateY(-4px);border-color:var(--accent)}
@@ -101,6 +111,9 @@
       .card{padding:22px;border-radius:16px}
       .card h2{font-size:23px}
       .card p{font-size:17px}
+      .socials a,.socials button{padding:10px 16px;font-size:13px}
+      .card .hint{font-size:15px}
+      .toast{bottom:16px;padding:12px 16px;font-size:14px}
       .gallery{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
       .game-art{height:180px}
       .game-title .game-love{font-size:13px}
@@ -146,6 +159,16 @@
         </ul>
       </section>
 
+      <section class="card" aria-labelledby="socials-title">
+        <h2 id="socials-title" data-en="Socials" data-ar="حساباتي">Socials</h2>
+        <ul class="socials">
+          <li><a href="https://www.instagram.com/8uvu4/" target="_blank" rel="noreferrer"><span class="glyph" aria-hidden="true">◎</span><span data-en="Instagram" data-ar="إنستقرام">Instagram</span></a></li>
+          <li><a href="https://www.tiktok.com/@8uvu1" target="_blank" rel="noreferrer"><span class="glyph" aria-hidden="true">♪</span><span data-en="TikTok" data-ar="تيك توك">TikTok</span></a></li>
+          <li><button type="button" id="copy-discord"><span class="glyph" aria-hidden="true">⧉</span><span data-en="Discord: 8uvu" data-ar="ديسكورد: 8uvu">Discord: 8uvu</span></button></li>
+        </ul>
+        <p class="hint" data-en="Tap Discord to copy my username." data-ar="اضغط ديسكورد عشان تنسخ اليوزر.">Tap Discord to copy my username.</p>
+      </section>
+
       <section class="card" aria-labelledby="games-title">
         <h2 id="games-title" data-en="Games I like" data-ar="ألعاب أحبها">Games I like</h2>
         <div class="gallery">
@@ -163,6 +186,8 @@
       <a href="#top" data-en="Back to top ↑" data-ar="الرجوع فوق ↑">Back to top ↑</a>
     </footer>
   </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script>
     (()=>{
@@ -203,6 +228,46 @@
       }
       themeButton.addEventListener('click',()=>{theme=theme==='night'?'day':'night';store('theme',theme);paintTheme()});
       languageButton.addEventListener('click',()=>{language=language==='en'?'ar':'en';store('lang',language);paintLanguage()});
+
+      const toast=document.getElementById('toast');
+      const discordButton=document.getElementById('copy-discord');
+      const DISCORD='8uvu';
+      let toastHide,toastClear;
+      function toastMessage(failed){
+        const user='<code>'+DISCORD+'</code>';
+        if(language==='ar')return (failed?'ما قدرت أنسخ تلقائياً — ديسكوردي: ':'تم النسخ! ضفني في ديسكورد: ')+user;
+        return (failed?'Couldn’t copy automatically — my Discord is ':'Copied! Add me on Discord: ')+user;
+      }
+      function showToast(failed){
+        if(!toast)return;
+        toast.innerHTML=toastMessage(failed);
+        toast.classList.add('show');
+        clearTimeout(toastHide);clearTimeout(toastClear);
+        toastHide=setTimeout(()=>{
+          toast.classList.remove('show');
+          toastClear=setTimeout(()=>{if(toast)toast.textContent=''},320);
+        },2600);
+      }
+      function manualCopy(){
+        const field=document.createElement('textarea');
+        field.value=DISCORD;
+        field.setAttribute('readonly','');
+        field.style.cssText='position:fixed;top:-1000px;left:-1000px;opacity:0';
+        document.body.appendChild(field);
+        field.select();
+        let ok=false;
+        try{ok=document.execCommand('copy')}catch(e){ok=false}
+        document.body.removeChild(field);
+        return ok;
+      }
+      function copyDiscord(){
+        if(navigator.clipboard&&navigator.clipboard.writeText){
+          navigator.clipboard.writeText(DISCORD).then(()=>showToast(false),()=>showToast(!manualCopy()));
+          return;
+        }
+        showToast(!manualCopy());
+      }
+      if(discordButton)discordButton.addEventListener('click',copyDiscord);
 
       const remembered=saved('lang');
       if(remembered==='ar'||remembered==='en')language=remembered;
