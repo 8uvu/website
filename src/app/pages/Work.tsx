@@ -3,7 +3,7 @@ import { ArrowLeft, ArrowUpRight } from 'lucide-react'
 import { Link, Navigate, useParams } from 'react-router'
 
 import { bySlug, projects } from '../../data/site'
-import { Lines, Parallax, Reveal } from '../components/motion'
+import { BoxArt, Lines, Reveal } from '../components/motion'
 
 const ease = [0.22, 1, 0.36, 1] as const
 
@@ -35,7 +35,7 @@ export function Work() {
         className="mt-12 overflow-hidden rounded-[32px]"
         style={{ background: project.tint }}
       >
-        <Parallax src={project.cover} alt={project.title} className="aspect-[16/10] sm:aspect-[16/9]" strength={5} />
+        <BoxArt src={project.cover} alt={project.title} className="aspect-[16/10] sm:aspect-[16/9]" />
       </motion.div>
 
       <div className="mt-16 grid gap-12 lg:grid-cols-[320px_1fr] lg:gap-24">
@@ -74,14 +74,14 @@ export function Work() {
       {project.shots && project.shots.length > 0 && (
         <div className="mt-16">
           <div className="image-frame aspect-[16/9] overflow-hidden rounded-[24px]" style={{ background: project.tint }}>
-            <img src={project.shots[0]} alt="" className="size-full object-cover" loading="lazy" />
+            <BoxArt src={project.shots[0]} alt="" className="size-full" />
           </div>
           {project.shots.length > 1 && (
             <div className="mt-6 grid gap-6 md:grid-cols-2">
               {project.shots.slice(1, 3).map((shot, i) => (
                 <Reveal key={shot} delay={i * 0.1}>
                   <div className="image-frame aspect-[4/3] overflow-hidden rounded-[24px]" style={{ background: project.tint }}>
-                    <img src={shot} alt="" className="size-full object-cover" loading="lazy" />
+                    <BoxArt src={shot} alt="" className="size-full" />
                   </div>
                 </Reveal>
               ))}
@@ -89,7 +89,7 @@ export function Work() {
           )}
           {project.shots.length > 3 && (
             <div className="mt-6 image-frame aspect-[16/9] overflow-hidden rounded-[24px]" style={{ background: project.tint }}>
-              <img src={project.shots[3]} alt="" className="size-full object-cover" loading="lazy" />
+              <BoxArt src={project.shots[3]} alt="" className="size-full" />
             </div>
           )}
         </div>
@@ -99,8 +99,8 @@ export function Work() {
         <p className="text-[14px] text-muted">Next game</p>
         <div className="mt-3 flex items-end justify-between gap-6">
           <h2 className="font-display text-[clamp(44px,8vw,120px)] transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-3">{next.title}</h2>
-          <span className="image-frame hidden aspect-[4/3] w-[260px] shrink-0 rounded-[20px] sm:block" style={{ background: next.tint }}>
-            <img src={next.cover} alt="" className="size-full object-cover transition-transform duration-700 group-hover:scale-105" />
+          <span className="image-frame hidden aspect-[4/3] w-[260px] shrink-0 overflow-hidden rounded-[20px] sm:block" style={{ background: next.tint }}>
+            <BoxArt src={next.cover} alt="" className="size-full" />
           </span>
         </div>
       </Link>

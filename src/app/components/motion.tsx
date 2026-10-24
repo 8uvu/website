@@ -52,6 +52,20 @@ export function Parallax({ src, alt, className, strength = 8 }: { src: string; a
   )
 }
 
+/**
+ * Full artwork, never cropped: the image is letterboxed (object-contain) and
+ * a blurred oversized copy of itself fills the leftover frame behind it, so
+ * portrait box art still looks intentional inside a landscape frame.
+ */
+export function BoxArt({ src, alt, className }: { src: string; alt: string; className?: string }) {
+  return (
+    <div className={cx('relative overflow-hidden', className)}>
+      <img src={src} alt="" aria-hidden className="absolute inset-0 size-full scale-[1.4] object-cover opacity-90 blur-2xl saturate-[1.15]" loading="lazy" />
+      <img src={src} alt={alt} className="relative size-full object-contain" loading="lazy" />
+    </div>
+  )
+}
+
 /** A button that leans toward the cursor. */
 export function Magnetic({ children, className, strength = 0.3 }: { children: ReactNode; className?: string; strength?: number }) {
   const ref = useRef<HTMLDivElement>(null)

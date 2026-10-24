@@ -4,7 +4,7 @@ import { Link } from 'react-router'
 
 import type { Project } from '../../data/site'
 import { cx } from '../lib/cx'
-import { Parallax } from './motion'
+import { BoxArt } from './motion'
 
 export function WorkCard({ project, index = 0 }: { project: Project; index?: number }) {
   const ref = useRef<HTMLAnchorElement>(null)
@@ -35,7 +35,7 @@ export function WorkCard({ project, index = 0 }: { project: Project; index?: num
       >
         <div className={cx('relative overflow-hidden rounded-image', project.size === 'large' ? 'aspect-[16/10]' : 'aspect-[4/5] md:aspect-[4/4.6]')} style={{ background: project.tint }}>
           <div className="absolute inset-0 transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.03]">
-            <Parallax src={project.cover} alt={project.title} className="size-full" strength={6} />
+            <BoxArt src={project.cover} alt={project.title} className="size-full" />
           </div>
           <motion.span
             aria-hidden
