@@ -1,0 +1,8 @@
+# deps / build
+node_modules/
+dist/
+.wrangler/
+
+# OS
+Thumbs.db
+.DS_Store
