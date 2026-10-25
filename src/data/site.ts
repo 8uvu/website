@@ -17,12 +17,10 @@ export const site = {
   tagline: 'Games and coding',
   status: { label: 'Online', online: true },
   bio: 'I like games and coding. Most of my free time goes to games, and the rest goes into little things I build with code.',
-  avatar: '/images/mark.png',
-
-  background: {
-    image: '/images/majoras-mask-1.webp',   // the moon shot @ /images; swap for any image
-    video: '',                              // e.g. '/images/backdrop.mp4' (muted loop)
-    overlay: 0.78,                          // 0–1 darkness over the background
+  avatar: '/images/mark.png',  background: {
+    image: '',                               // set a URL here to use a photo instead; empty = animated gray backdrop
+    video: '',                               // e.g. '/images/backdrop.mp4' (muted loop)
+    overlay: 0.75,                           // 0–1 darkness over the image/video background
   },
 
   audio: {

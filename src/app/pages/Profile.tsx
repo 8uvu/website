@@ -143,20 +143,33 @@ export function Profile() {
 
 /* ── Pieces ─────────────────────────────────────────────────────────────── */
 
-// Optional custom image/video background (both editable in src/data/site.ts);
-// the dark overlay keeps text readable. With neither set this is window
-// dressing no more than a plain solid background.
+// Custom image/video background when set in src/data/site.ts; otherwise a
+// smooth moving gray wash — two large soft patches drifting slowly over a
+// neutral dark base, no color, nothing to read into.
 function Backdrop() {
   const hasBg = Boolean(site.background.image || site.background.video)
-  if (!hasBg) return null
   return (
-    <div aria-hidden className="pointer-events-none fixed inset-0">
-      {site.background.video ? (
-        <video src={site.background.video} autoPlay muted loop playsInline className="size-full object-cover" />
+    <div aria-hidden className="pointer-events-none fixed inset-0 overflow-hidden">
+      {hasBg ? (
+        <>
+          {site.background.video ? (
+            <video src={site.background.video} autoPlay muted loop playsInline className="size-full object-cover" />
+          ) : (
+            <img src={site.background.image} alt="" className="size-full object-cover" />
+          )}
+          <div className="absolute inset-0 bg-black" style={{ opacity: site.background.overlay }} />
+        </>
       ) : (
-        <img src={site.background.image} alt="" className="size-full object-cover" />
+        <>
+          <div className="absolute inset-0 bg-[#0d0d11]" />
+          {/* upper-center light-gray cloud, drifting */}
+          <div className="animate-gray-a absolute top-[-18%] left-[11%] h-[72%] w-[78%] rounded-[50%] bg-[radial-gradient(closest-side,#26262c_0%,rgb(38_38_44/0.55)_45%,rgb(13_13_17/0)_72%)]" />
+          {/* lower-left deeper-gray wash, counter-drifting */}
+          <div className="animate-gray-b absolute bottom-[-22%] left-[-6%] h-[70%] w-[74%] rounded-[50%] bg-[radial-gradient(closest-side,#1c1c21_0%,rgb(28_28_33/0.5)_45%,rgb(13_13_17/0)_72%)]" />
+          {/* right-edge soft gray, drifting the other way */}
+          <div className="animate-gray-a absolute top-[30%] right-[-14%] h-[60%] w-[52%] rounded-[50%] bg-[radial-gradient(closest-side,#17171b_0%,rgb(23_23_27/0.6)_45%,rgb(13_13_17/0)_72%)]" />
+        </>
       )}
-      <div className="absolute inset-0 bg-black" style={{ opacity: site.background.overlay }} />
     </div>
   )
 }
