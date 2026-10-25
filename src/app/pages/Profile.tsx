@@ -18,9 +18,9 @@ export function Profile() {
       <div className="relative mx-auto w-full max-w-[520px] px-5 pb-20 pt-20 sm:pt-24">
         {/* The card */}
         <motion.section
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.2, ease }}
+          initial={{ opacity: 0, y: 26, scale: 0.985 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ type: 'spring', stiffness: 70, damping: 19, mass: 0.9, delay: 0.1 }}
           className="rounded-card border border-line bg-surface/85 pb-8 pt-14 shadow-[0_24px_80px_rgb(0_0_0/0.6)] backdrop-blur-md"
         >
           <div className="flex flex-col items-center px-6 text-center">
@@ -69,24 +69,29 @@ export function Profile() {
 
           {/* 5 — social links, tidy grid */}
           <ul className="mx-6 mt-8 grid grid-cols-2 gap-2.5">
-            {site.socials.map((s) => {
+            {site.socials.map((s, i) => {
               const Icon = icons[s.label] ?? ArrowRight
-              return 'href' in s && s.href ? (
-                <li key={s.label}>
-                  <a
-                    href={s.href}
-                    target="_blank"
-                    rel="noreferrer noopener"
-                    className="group flex items-center gap-3 rounded-control border border-line bg-surface-2/60 px-4 py-3 transition-all duration-300 hover:-translate-y-0.5 hover:border-line-strong hover:shadow-[0_0_24px_rgb(195_60_85/0.12)]"
-                  >
-                    <Icon className="size-[15px] shrink-0 text-muted transition-colors group-hover:text-fg" />
-                    <span className="text-[13.5px] text-muted transition-colors group-hover:text-fg">{s.label}</span>
-                  </a>
-                </li>
-              ) : (
-                <li key={s.label}>
-                  <CopyHandle handle={'handle' in s && s.handle ? s.handle : s.label} />
-                </li>
+              return (
+                <motion.li
+                  key={s.label}
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.7, delay: 0.35 + i * 0.07, ease }}
+                >
+                  {'href' in s && s.href ? (
+                    <a
+                      href={s.href}
+                      target="_blank"
+                      rel="noreferrer noopener"
+                      className="group flex items-center gap-3 rounded-control border border-line bg-surface-2/60 px-4 py-3 transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:border-line-strong hover:bg-surface-2 hover:shadow-[0_0_24px_rgb(195_60_85/0.12)]"
+                    >
+                      <Icon className="size-[15px] shrink-0 text-muted transition-colors duration-300 group-hover:text-fg" />
+                      <span className="text-[13.5px] text-muted transition-colors duration-300 group-hover:text-fg">{s.label}</span>
+                    </a>
+                  ) : (
+                    <CopyHandle handle={'handle' in s && s.handle ? s.handle : s.label} />
+                  )}
+                </motion.li>
               )
             })}
           </ul>
@@ -104,11 +109,17 @@ export function Profile() {
         <Reveal delay={0.1} className="mt-10">
           <p className="label-caps">Games</p>
           <ul className="mt-3 flex flex-col gap-2.5">
-            {projects.map((p) => (
-              <li key={p.slug}>
+            {projects.map((p, i) => (
+              <motion.li
+                key={p.slug}
+                initial={{ opacity: 0, y: 12 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '0px 0px -40px 0px' }}
+                transition={{ duration: 0.7, delay: i * 0.06, ease }}
+              >
                 <Link
                   to={`/work/${p.slug}`}
-                  className="group flex items-center gap-4 rounded-control border border-line bg-surface/80 px-4 py-2.5 transition-all duration-300 hover:-translate-y-0.5 hover:border-line-strong"
+                  className="group flex items-center gap-4 rounded-control border border-line bg-surface/80 px-4 py-2.5 transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:border-line-strong hover:bg-surface"
                 >
                   <span className="image-frame size-11 shrink-0 overflow-hidden rounded-[10px]">
                     <img src={p.cover} alt="" loading="lazy" className="size-full object-cover" />
@@ -120,7 +131,7 @@ export function Profile() {
                   <span className="text-[12.5px] tabular-nums text-faint">{p.year}</span>
                   <ArrowRight className="size-3.5 shrink-0 text-faint transition-all duration-300 group-hover:translate-x-0.5 group-hover:text-fg" />
                 </Link>
-              </li>
+              </motion.li>
             ))}
           </ul>
         </Reveal>
@@ -296,7 +307,7 @@ function CopyHandle({ handle }: { handle: string }) {
         setCopied(true)
         window.setTimeout(() => setCopied(false), 2000)
       }}
-      className="group flex items-center gap-3 rounded-control border border-line bg-surface-2/60 px-4 py-3 text-left transition-all duration-300 hover:-translate-y-0.5 hover:border-line-strong hover:shadow-[0_0_24px_rgb(195_60_85/0.12)]"
+      className="group flex items-center gap-3 rounded-control border border-line bg-surface-2/60 px-4 py-3 text-left transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:border-line-strong hover:bg-surface-2 hover:shadow-[0_0_24px_rgb(195_60_85/0.12)]"
       aria-label={`Copy ${handle} on Discord`}
     >
       <Icon className={copied ? 'size-[15px] shrink-0 text-accent' : 'size-[15px] shrink-0 text-muted transition-colors group-hover:text-fg'} />
