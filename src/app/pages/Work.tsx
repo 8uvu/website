@@ -15,14 +15,14 @@ export function Work() {
   const next = projects[(index + 1) % projects.length]
 
   return (
-    <article className="mx-auto max-w-[1400px] px-5 pt-28 sm:px-8 sm:pt-36">
+    <article        className="mx-auto max-w-[1000px] px-5 pb-24 pt-24 sm:pt-28">
       <Link to="/#work" className="inline-flex h-9 items-center gap-1.5 text-[14px] text-muted transition-colors hover:text-fg">
         <ArrowLeft className="size-4" />
         All games
       </Link>
 
       <div className="mt-8 flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
-        <Lines as="h1" className="font-display text-[clamp(56px,10vw,150px)]" lines={[project.title]} />
+        <Lines as="h1" className="font-display text-[clamp(44px,8vw,96px)]" lines={[project.title]} />
         <Reveal delay={0.2} className="max-w-md text-pretty text-[17px] leading-relaxed text-muted lg:pb-4">
           {project.summary}
         </Reveal>
@@ -91,7 +91,7 @@ export function Work() {
       <Link to={`/work/${next.slug}`} className="group mt-32 block border-t border-line pt-10">
         <p className="text-[14px] text-muted">Next game</p>
         <div className="mt-3 flex items-end justify-between gap-6">
-          <h2 className="font-display text-[clamp(44px,8vw,120px)] transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-3">{next.title}</h2>
+          <h2 className="font-display text-[clamp(36px,6vw,64px)] transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-3">{next.title}</h2>
           <span className="image-frame hidden aspect-[4/3] w-[260px] shrink-0 overflow-hidden rounded-[20px] sm:block" style={{ background: next.tint }}>
             <BoxArt src={next.cover} alt="" className="size-full" />
           </span>

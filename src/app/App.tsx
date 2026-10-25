@@ -3,10 +3,8 @@ import { useEffect } from 'react'
 import { BrowserRouter, Navigate, Route, Routes, useLocation } from 'react-router'
 
 import { Footer } from './components/Footer'
-import { Nav } from './components/Nav'
 import { Preloader } from './components/Preloader'
-import { About } from './pages/About'
-import { Home } from './pages/Home'
+import { Profile } from './pages/Profile'
 import { Work } from './pages/Work'
 
 function ScrollManager() {
@@ -36,9 +34,9 @@ function Pages() {
         transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
       >
         <Routes location={location}>
-          <Route index element={<Home />} />
+          <Route index element={<Profile />} />
           <Route path="work/:slug" element={<Work />} />
-          <Route path="about" element={<About />} />
+          <Route path="about" element={<Navigate to="/#about" replace />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </motion.main>
@@ -51,7 +49,6 @@ export function App() {
     <BrowserRouter>
       <Preloader />
       <ScrollManager />
-      <Nav />
       <Pages />
       <Footer />
     </BrowserRouter>

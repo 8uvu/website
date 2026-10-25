@@ -33,7 +33,7 @@ export function Preloader() {
       {show && (
         <motion.div
           key="preloader"
-          className="fixed inset-0 z-[100] flex items-end justify-between bg-fg p-6 text-bg sm:p-10"
+          className="fixed inset-0 z-[100] flex items-end justify-between bg-bg p-6 text-fg sm:p-10"
           exit={{ y: '-100%' }}
           transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
         >
@@ -41,11 +41,11 @@ export function Preloader() {
             <motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.1 }} className="font-pixel text-[12px] tracking-[0.3em] sm:text-[14px]">
               {site.name}
             </motion.p>
-            <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.4, delay: 0.3 }} className="font-pixel text-[9px] text-bg/60 sm:text-[10px]">
+            <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.4, delay: 0.3 }} className="font-pixel text-[9px] text-faint sm:text-[10px]">
               loading game…
             </motion.p>
           </div>
-          <p className="font-display tabular-nums text-[80px] leading-none sm:text-[140px]">{count}</p>
+          <p className="text-glow font-display tabular-nums text-[80px] leading-none sm:text-[140px]">{count}</p>
         </motion.div>
       )}
     </AnimatePresence>

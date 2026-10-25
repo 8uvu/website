@@ -125,47 +125,6 @@ export const projects: Project[] = [
 
 export const bySlug = (slug: string) => projects.find((p) => p.slug === slug)
 
-export const services = [
-  {
-    title: 'Games',
-    body: 'The reason this site exists. I like games that leave a weird impression, and I will happily replay one I already know front to back.',
-  },
-  {
-    title: 'Coding',
-    body: 'Building little things with code is how I like to spend an evening. Small projects that are finished beat big ones sitting in a folder.',
-  },
-  {
-    title: 'Learning',
-    body: 'Always in the middle of something new. Half the fun is the rabbit hole you fall into on the way there.',
-  },
-  {
-    title: 'Reading',
-    body: 'Most of my free time goes to games and reading — in that order, most weeks.',
-  },
-  {
-    title: 'Retro games',
-    body: 'Old games, good games. The chunkier the pixels, the better.',
-  },
-]
-
-export const testimonials = [
-  {
-    quote: 'I like building little things with code, and most of my free time goes to games and reading.',
-    name: 'Cenotaph',
-    role: 'About me',
-  },
-  {
-    quote: 'This is a small page I put together to keep a few things about me in one place.',
-    name: 'Cenotaph',
-    role: 'About this site',
-  },
-  {
-    quote: 'Apollyon <3',
-    name: 'Cenotaph',
-    role: 'About The Binding of Isaac',
-  },
-]
-
 export const experience = [
   { period: 'Now', title: 'Little things with code', detail: 'Small projects, finished and shared' },
   { period: 'Most days', title: 'Games', detail: 'Retro especially, and whatever I am replaying' },

@@ -7,79 +7,48 @@
   --font-sans: 'Inter Variable', ui-sans-serif, system-ui, -apple-system, sans-serif;
   --font-display: 'Bricolage Grotesque Variable', 'Inter Variable', ui-sans-serif, sans-serif;
 
-  --color-bg: #f2efe9;
-  --color-surface: #f8f6f1;
-  --color-surface-2: #e9e5dd;
-  --color-line: #ddd8ce;
-  --color-line-strong: #c9c3b7;
-  --color-fg: #141311;
-  --color-muted: #6a665e;
-  --color-faint: #9c978d;
-  --color-accent: #c2113f;
+  /* Dark only: the guns.lol bio-page look — near-black canvas, one card,
+     one accent, everything else quiet. */
+  --color-bg: #0a0a0b;
+  --color-surface: #121213;
+  --color-surface-2: #17171a;
+  --color-line: #232327;
+  --color-line-strong: #2f2f35;
+  --color-fg: #f2f2f4;
+  --color-muted: #9b9ba1;
+  --color-faint: #63636a;
+  --color-accent: #ff3b5c;
 
-  --radius-control: 14px;
+  --radius-control: 12px;
   --radius-card: 24px;
-  --radius-image: 28px;
+  --radius-image: 20px;
 
-  --animate-marquee: marquee 30s linear infinite;
-  --animate-drift-a: drift-a 22s ease-in-out infinite alternate;
-  --animate-drift-b: drift-b 26s ease-in-out infinite alternate;
-  --animate-drift-c: drift-c 30s ease-in-out infinite alternate;
+  --animate-marquee: marquee 34s linear infinite;
+  --animate-drift-a: drift-a 26s ease-in-out infinite alternate;
+  --animate-drift-b: drift-b 30s ease-in-out infinite alternate;
+  --animate-drift-c: drift-c 36s ease-in-out infinite alternate;
   @keyframes marquee {
     from { transform: translateX(0); }
     to { transform: translateX(-50%); }
   }
   @keyframes drift-a {
     from { transform: translate3d(0, 0, 0) scale(1); }
-    to { transform: translate3d(-10%, 12%, 0) scale(1.12); }
+    to { transform: translate3d(-8%, 10%, 0) scale(1.12); }
   }
   @keyframes drift-b {
     from { transform: translate3d(0, 0, 0) scale(1.05); }
-    to { transform: translate3d(14%, -8%, 0) scale(0.95); }
+    to { transform: translate3d(10%, -6%, 0) scale(0.95); }
   }
   @keyframes drift-c {
-    from { transform: translate3d(0, 6%, 0) scale(0.95); }
-    to { transform: translate3d(-8%, -10%, 0) scale(1.15); }
+    from { transform: translate3d(0, 5%, 0) scale(0.95); }
+    to { transform: translate3d(-6%, -8%, 0) scale(1.15); }
   }
-}
-
-/* Night theme: the same paper-and-ink design, inverted. These live outside
-   any layer so they win over the themed tokens above; every utility reads
-   them through var(), so one switch repaints the whole site. */
-html[data-theme='night'] {
-  color-scheme: dark;
-  --color-bg: #131211;
-  --color-surface: #1a1917;
-  --color-surface-2: #26241f;
-  --color-line: #33302a;
-  --color-line-strong: #464139;
-  --color-fg: #f3f0ea;
-  --color-muted: #aaa598;
-  --color-faint: #797369;
-  --color-accent: #ff4d6d;
-}
-
-/* The grain multiplies into paper by day; on dark it has to lift instead. */
-html[data-theme='night'] .grain {
-  mix-blend-mode: screen;
-  opacity: 0.14;
 }
 
 @layer base {
-  *,
-  *::before,
-  *::after {
-    corner-shape: squircle;
-    border-color: var(--color-line);
-  }
-  .round,
-  .round::before,
-  .round::after {
-    corner-shape: round;
-  }
   html {
     background: var(--color-bg);
-    color-scheme: light;
+    color-scheme: dark;
     overscroll-behavior-y: none;
   }
   body {
@@ -105,11 +74,16 @@ html[data-theme='night'] .grain {
     outline-offset: 3px;
   }
   ::selection {
-    background: var(--color-fg);
-    color: var(--color-bg);
+    background: var(--color-accent);
+    color: #fff;
   }
   img {
     user-select: none;
+  }
+  .round,
+  .round::before,
+  .round::after {
+    corner-shape: round;
   }
   @media (prefers-reduced-motion: reduce) {
     *,
@@ -121,8 +95,8 @@ html[data-theme='night'] .grain {
   }
 }
 
-/* Display type: Bricolage's optical size and width axes give it character at
-   scale; keep the tracking tight and the leading tighter. */
+/* Display type stays Bricolage, but quiet: it shows up in one place, the
+   profile name, where the glow does the talking. */
 @utility font-display {
   font-family: var(--font-display);
   font-variation-settings: 'opsz' 96, 'wdth' 100;
@@ -140,19 +114,19 @@ html[data-theme='night'] .grain {
   line-height: 1.5;
 }
 
-@utility font-display-wide {
-  font-family: var(--font-display);
-  font-variation-settings: 'opsz' 96, 'wdth' 112;
-  font-weight: 600;
-  letter-spacing: -0.03em;
-  line-height: 0.92;
-}
-
 @utility text-balance {
   text-wrap: balance;
 }
 @utility text-pretty {
   text-wrap: pretty;
+}
+
+/* The signature guns.lol glow for the profile name. */
+@utility text-glow {
+  text-shadow:
+    0 0 6px rgb(242 242 244 / 0.45),
+    0 0 18px rgb(242 242 244 / 0.22),
+    0 0 42px rgb(255 59 92 / 0.2);
 }
 
 /* Underline that draws in from the left on hover. */
@@ -172,9 +146,17 @@ html[data-theme='night'] .grain {
   overflow: hidden;
 }
 
-/* Film grain over the hero's colour field. */
+/* Film grain over the backdrop; on black it lifts instead of darkening. */
 @utility grain {
-  opacity: 0.22;
-  mix-blend-mode: multiply;
+  opacity: 0.13;
+  mix-blend-mode: screen;
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.3 0 0 0 0 0.3 0 0 0 0 0.3 0 0 0 0.6 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+/* Blinking caret for the typewriter line. */
+@utility caret-blink {
+  animation: caret 1s steps(1) infinite;
+  @keyframes caret {
+    50% { opacity: 0; }
+  }
 }

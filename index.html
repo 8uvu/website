@@ -3,22 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="color-scheme" content="light dark" />
-    <meta name="theme-color" content="#f2efe9" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="theme-color" content="#0a0a0b" />
     <title>Cenotaph — games and coding</title>
     <meta name="description" content="Cenotaph (8uvu) — a small personal site about games and coding." />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <script>
-      // Set the theme before first paint so the page never flashes the wrong one.
-      try {
-        var saved = localStorage.getItem('theme')
-        var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
-        var theme = saved === 'night' || saved === 'day' ? saved : prefersDark ? 'night' : 'day'
-        document.documentElement.dataset.theme = theme
-        var meta = document.querySelector('meta[name="theme-color"]')
-        if (meta) meta.content = theme === 'night' ? '#131211' : '#f2efe9'
-      } catch (e) {}
-    </script>
   </head>
   <body>
     <div id="root"></div>
