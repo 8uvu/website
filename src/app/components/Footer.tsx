@@ -34,17 +34,26 @@ export function Footer() {
         </div>
       ) : (
         <form onSubmit={submit} className="mt-3 flex flex-col gap-2.5 rounded-card border border-line bg-surface p-6">
-          <div className="grid gap-2.5 sm:grid-cols-2">
-            <input required placeholder="Your name" className={field} value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
-            <input required type="email" placeholder="Email" className={field} value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
+          <div className="grid gap-3 sm:grid-cols-2">
+            <label className="flex flex-col gap-1.5 text-[12.5px] text-muted">
+              Name
+              <input required placeholder="Your name" className={field} value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
+            </label>
+            <label className="flex flex-col gap-1.5 text-[12.5px] text-muted">
+              Email
+              <input required type="email" placeholder="Email" className={field} value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
+            </label>
           </div>
-          <textarea
-            required
-            placeholder="What's on your mind"
-            className={`${field} h-auto min-h-[100px] shrink-none resize-none py-3`}
-            value={form.message}
-            onChange={(e) => setForm({ ...form, message: e.target.value })}
-          />
+          <label className="flex flex-col gap-1.5 text-[12.5px] text-muted">
+            Message
+            <textarea
+              required
+              placeholder="What's on your mind"
+              className={`${field} h-auto min-h-[100px] shrink-none resize-none py-3`}
+              value={form.message}
+              onChange={(e) => setForm({ ...form, message: e.target.value })}
+            />
+          </label>
           <button
             type="submit"
             disabled={state === 'sending'}

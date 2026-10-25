@@ -16,13 +16,13 @@ export const site = {
   name: 'Cenotaph',
   tagline: 'Games and coding',
   status: { label: 'Online', online: true },
-  bio: 'I like games and coding. Most of my free time goes to games and reading, and the rest goes into little things I build with code.',
+  bio: 'I like games and coding. Most of my free time goes to games, and the rest goes into little things I build with code.',
   avatar: '/images/mark.png',
 
   background: {
-    image: '',       // e.g. '/images/backdrop.jpg'
-    video: '',       // e.g. '/images/backdrop.mp4' (muted loop)
-    overlay: 0.75,   // 0–1 darkness over the background
+    image: '/images/majoras-mask-1.webp',   // the moon shot @ /images; swap for any image
+    video: '',                              // e.g. '/images/backdrop.mp4' (muted loop)
+    overlay: 0.78,                          // 0–1 darkness over the background
   },
 
   audio: {
@@ -30,7 +30,7 @@ export const site = {
     volume: 0.4,     // 0–1
   },
 
-  badges: ['Games', 'Coding', 'Reading', 'Retro'],
+  badges: ['Games', 'Coding', 'Retro'],
 
   socials: [
     { label: 'Discord', handle: '8uvu' },   // no href → copies the handle on click
@@ -156,5 +156,5 @@ export const bySlug = (slug: string) => projects.find((p) => p.slug === slug)
 export const experience = [
   { period: 'Now', title: 'Little things with code', detail: 'Small projects, finished and shared' },
   { period: 'Most days', title: 'Games', detail: 'Retro especially, and whatever I am replaying' },
-  { period: 'Always', title: 'Learning and reading', detail: 'Something new is open in a tab somewhere' },
+  { period: 'Always', title: 'Learning and tinkering', detail: 'Something new is open in a tab somewhere' },
 ]
