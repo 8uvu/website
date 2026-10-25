@@ -1,20 +1,48 @@
-// Everything about you lives here. The pages read from this file.
+// ─────────────────────────────────────────────────────────────────────────────
+//  PROFILE — edit everything visible on the page here
+// ─────────────────────────────────────────────────────────────────────────────
+//  • name / tagline / status / bio  — the card's text
+//  • background               — set `image` (or `video`) to any /images/… URL;
+//    leaving both empty keeps the plain near-black backdrop
+//  • audio                    — put a URL (e.g. /audio/theme.mp3) to enable a
+//    subtle track after the visitor enters; empty = no audio
+//  • badges                   — the small chips under the tagline
+//  • socials                  — add/remove freely; an entry without `href`
+//    (like Discord here) copy-on-clicks instead
+//  • accent color             — one place, src/styles.css → `--color-accent`
+// ─────────────────────────────────────────────────────────────────────────────
 
 export const site = {
   name: 'Cenotaph',
-  role: 'Games and coding',
-  location: 'Online',
-  available: true,
-  intro: 'I like games and coding. Most of my free time goes to games and reading, and the rest goes into little things I build with code.',
-  discord: '8uvu',
+  tagline: 'Games and coding',
+  status: { label: 'Online', online: true },
+  bio: 'I like games and coding. Most of my free time goes to games and reading, and the rest goes into little things I build with code.',
+  avatar: '/images/mark.png',
+
+  background: {
+    image: '',       // e.g. '/images/backdrop.jpg'
+    video: '',       // e.g. '/images/backdrop.mp4' (muted loop)
+    overlay: 0.75,   // 0–1 darkness over the background
+  },
+
+  audio: {
+    url: '',         // e.g. '/audio/ambient.mp3'
+    volume: 0.4,     // 0–1
+  },
+
+  badges: ['Games', 'Coding', 'Reading', 'Retro'],
+
   socials: [
+    { label: 'Discord', handle: '8uvu' },   // no href → copies the handle on click
     { label: 'GitHub', href: 'https://github.com/8uvu' },
     { label: 'Instagram', href: 'https://www.instagram.com/8uvu4/' },
     { label: 'TikTok', href: 'https://www.tiktok.com/@8uvu1' },
   ],
-  marquee: ['Games', 'Coding', 'Learning', 'Reading', 'Retro games'],
+
+  copyLinkText: 'Copy profile link',
 }
 
+// The games section under the card. Everything about one game lives here.
 export interface Project {
   slug: string
   title: string

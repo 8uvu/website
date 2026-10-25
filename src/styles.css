@@ -1,36 +1,29 @@
 @import 'tailwindcss';
 @import '@fontsource-variable/inter';
 @import '@fontsource-variable/bricolage-grotesque';
-@import '@fontsource/press-start-2p';
 
 @theme {
   --font-sans: 'Inter Variable', ui-sans-serif, system-ui, -apple-system, sans-serif;
   --font-display: 'Bricolage Grotesque Variable', 'Inter Variable', ui-sans-serif, sans-serif;
 
-  /* Dark only: the guns.lol bio-page look — near-black canvas, one card,
-     one accent, everything else quiet. */
-  --color-bg: #0a0a0b;
-  --color-surface: #121213;
-  --color-surface-2: #17171a;
-  --color-line: #232327;
-  --color-line-strong: #2f2f35;
-  --color-fg: #f2f2f4;
-  --color-muted: #9b9ba1;
-  --color-faint: #63636a;
-  --color-accent: #ff3b5c;
+  /* Near-black canvas, one accent, everything else quiet. The accent is the
+     single color allowed to carry personality; change it here. */
+  --color-bg: #08080a;
+  --color-surface: #101013;
+  --color-surface-2: #16161a;
+  --color-line: #222226;
+  --color-line-strong: #2e2e34;
+  --color-fg: #ededf0;
+  --color-muted: #93939b;
+  --color-faint: #5c5c64;
+  --color-accent: #c33c55;
 
   --radius-control: 12px;
   --radius-card: 24px;
-  --radius-image: 20px;
 
-  --animate-marquee: marquee 34s linear infinite;
-  --animate-drift-a: drift-a 26s ease-in-out infinite alternate;
-  --animate-drift-b: drift-b 30s ease-in-out infinite alternate;
-  --animate-drift-c: drift-c 36s ease-in-out infinite alternate;
-  @keyframes marquee {
-    from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
-  }
+  --animate-drift-a: drift-a 30s ease-in-out infinite alternate;
+  --animate-drift-b: drift-b 34s ease-in-out infinite alternate;
+  --animate-drift-c: drift-c 40s ease-in-out infinite alternate;
   @keyframes drift-a {
     from { transform: translate3d(0, 0, 0) scale(1); }
     to { transform: translate3d(-8%, 10%, 0) scale(1.12); }
@@ -95,23 +88,12 @@
   }
 }
 
-/* Display type stays Bricolage, but quiet: it shows up in one place, the
-   profile name, where the glow does the talking. */
 @utility font-display {
   font-family: var(--font-display);
   font-variation-settings: 'opsz' 96, 'wdth' 100;
   font-weight: 500;
   letter-spacing: -0.035em;
   line-height: 0.95;
-}
-
-/* Pixel chrome: tiny labels that carry the game feel. Press Start 2P only
-   makes sense small — never negative-track it, never kern it like sans. */
-@utility font-pixel {
-  font-family: 'Press Start 2P', monospace;
-  font-size: inherit;
-  letter-spacing: 0.04em;
-  line-height: 1.5;
 }
 
 @utility text-balance {
@@ -121,24 +103,20 @@
   text-wrap: pretty;
 }
 
-/* The signature guns.lol glow for the profile name. */
-@utility text-glow {
-  text-shadow:
-    0 0 6px rgb(242 242 244 / 0.45),
-    0 0 18px rgb(242 242 244 / 0.22),
-    0 0 42px rgb(255 59 92 / 0.2);
+/* Small uppercase section label, used in place of the old pixel font. */
+@utility label-caps {
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-faint);
 }
 
-/* Underline that draws in from the left on hover. */
-@utility link-draw {
-  background-image: linear-gradient(currentColor, currentColor);
-  background-repeat: no-repeat;
-  background-size: 0% 1px;
-  background-position: 0 100%;
-  transition: background-size 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-  &:hover {
-    background-size: 100% 1px;
-  }
+/* The glow behind the profile name — soft, never neon. */
+@utility text-glow {
+  text-shadow:
+    0 0 6px rgb(237 237 240 / 0.4),
+    0 0 18px rgb(237 237 240 / 0.18),
+    0 0 42px rgb(195 60 85 / 0.18);
 }
 
 @utility image-frame {
@@ -146,17 +124,30 @@
   overflow: hidden;
 }
 
-/* Film grain over the backdrop; on black it lifts instead of darkening. */
+/* Very restrained grain over the backdrop; on black it lifts, not darkens. */
 @utility grain {
-  opacity: 0.13;
+  opacity: 0.11;
   mix-blend-mode: screen;
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.3 0 0 0 0 0.3 0 0 0 0 0.3 0 0 0 0.6 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
 }
 
-/* Blinking caret for the typewriter line. */
+/* Dark edges that pull the eye to the middle of the screen. */
+@utility vignette {
+  background: radial-gradient(ellipse 90% 80% at 50% 40%, transparent 55%, rgb(0 0 0 / 0.55) 100%);
+}
+
+/* Blinking caret for the typewriter bio. */
 @utility caret-blink {
   animation: caret 1s steps(1) infinite;
   @keyframes caret {
     50% { opacity: 0; }
+  }
+}
+
+/* Soft breathing pulse for the "click to enter" cue. */
+@utility breathe {
+  animation: breathe 3.2s ease-in-out infinite;
+  @keyframes breathe {
+    50% { opacity: 0.45; }
   }
 }

@@ -2,8 +2,8 @@ import { AnimatePresence, motion } from 'motion/react'
 import { useEffect } from 'react'
 import { BrowserRouter, Navigate, Route, Routes, useLocation } from 'react-router'
 
+import { EnterGate } from './components/EnterGate'
 import { Footer } from './components/Footer'
-import { Preloader } from './components/Preloader'
 import { Profile } from './pages/Profile'
 import { Work } from './pages/Work'
 
@@ -36,7 +36,7 @@ function Pages() {
         <Routes location={location}>
           <Route index element={<Profile />} />
           <Route path="work/:slug" element={<Work />} />
-          <Route path="about" element={<Navigate to="/#about" replace />} />
+          <Route path="about" element={<Navigate to="/" replace />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </motion.main>
@@ -45,12 +45,19 @@ function Pages() {
 }
 
 export function App() {
+  // `entered` keeps the gate in the tree until its fade-out completes;
+  // EnterGate owns the visibility itself.
+  function enter() {
+    // Profiles can hook this to start audio after the visitor's first click.
+    window.dispatchEvent(new Event('app:entered'))
+  }
+
   return (
     <BrowserRouter>
-      <Preloader />
       <ScrollManager />
       <Pages />
       <Footer />
+      <EnterGate onEnter={enter} />
     </BrowserRouter>
   )
 }
