@@ -1,6 +1,7 @@
 @import 'tailwindcss';
 @import '@fontsource-variable/inter';
 @import '@fontsource-variable/bricolage-grotesque';
+@import '@fontsource/press-start-2p';
 
 @theme {
   --font-sans: 'Inter Variable', ui-sans-serif, system-ui, -apple-system, sans-serif;
@@ -14,7 +15,7 @@
   --color-fg: #141311;
   --color-muted: #6a665e;
   --color-faint: #9c978d;
-  --color-accent: #2f3bff;
+  --color-accent: #c2113f;
 
   --radius-control: 14px;
   --radius-card: 24px;
@@ -55,7 +56,7 @@ html[data-theme='night'] {
   --color-fg: #f3f0ea;
   --color-muted: #aaa598;
   --color-faint: #797369;
-  --color-accent: #8b91ff;
+  --color-accent: #ff4d6d;
 }
 
 /* The grain multiplies into paper by day; on dark it has to lift instead. */
@@ -128,6 +129,15 @@ html[data-theme='night'] .grain {
   font-weight: 500;
   letter-spacing: -0.035em;
   line-height: 0.95;
+}
+
+/* Pixel chrome: tiny labels that carry the game feel. Press Start 2P only
+   makes sense small — never negative-track it, never kern it like sans. */
+@utility font-pixel {
+  font-family: 'Press Start 2P', monospace;
+  font-size: inherit;
+  letter-spacing: 0.04em;
+  line-height: 1.5;
 }
 
 @utility font-display-wide {

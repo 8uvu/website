@@ -35,7 +35,7 @@ export function Work() {
         className="mt-12 overflow-hidden rounded-[32px]"
         style={{ background: project.tint }}
       >
-        <BoxArt src={project.cover} alt={project.title} className="aspect-[16/10] sm:aspect-[16/9]" />
+        <BoxArt src={project.cover} alt={project.title} className="aspect-[16/10] sm:aspect-[16/9]" eager />
       </motion.div>
 
       <div className="mt-16 grid gap-12 lg:grid-cols-[320px_1fr] lg:gap-24">
@@ -71,29 +71,22 @@ export function Work() {
         </div>
       </div>
 
-      {project.shots && project.shots.length > 0 && (
-        <div className="mt-16">
-          <div className="image-frame aspect-[16/9] overflow-hidden rounded-[24px]" style={{ background: project.tint }}>
-            <BoxArt src={project.shots[0]} alt="" className="size-full" />
-          </div>
-          {project.shots.length > 1 && (
-            <div className="mt-6 grid gap-6 md:grid-cols-2">
-              {project.shots.slice(1, 3).map((shot, i) => (
-                <Reveal key={shot} delay={i * 0.1}>
-                  <div className="image-frame aspect-[4/3] overflow-hidden rounded-[24px]" style={{ background: project.tint }}>
-                    <BoxArt src={shot} alt="" className="size-full" />
-                  </div>
-                </Reveal>
-              ))}
-            </div>
-          )}
-          {project.shots.length > 3 && (
-            <div className="mt-6 image-frame aspect-[16/9] overflow-hidden rounded-[24px]" style={{ background: project.tint }}>
-              <BoxArt src={project.shots[3]} alt="" className="size-full" />
-            </div>
-          )}
+      <div className="mt-16">
+        <div className="image-frame aspect-[16/9] overflow-hidden rounded-[24px]" style={{ background: project.tint }}>
+          <BoxArt src={project.shots[0]} alt="" className="size-full" eager />
         </div>
-      )}
+        {project.shots.length > 1 && (
+          <div className="mt-6 grid gap-6 md:grid-cols-2">
+            {project.shots.slice(1).map((shot, i) => (
+              <Reveal key={shot} delay={i * 0.1}>
+                <div className="image-frame aspect-[4/3] overflow-hidden rounded-[24px]" style={{ background: project.tint }}>
+                  <BoxArt src={shot} alt="" className="size-full" />
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        )}
+      </div>
 
       <Link to={`/work/${next.slug}`} className="group mt-32 block border-t border-line pt-10">
         <p className="text-[14px] text-muted">Next game</p>

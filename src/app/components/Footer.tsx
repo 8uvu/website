@@ -40,6 +40,7 @@ export function Footer() {
       <div className="mx-auto max-w-[1400px] px-5 py-20 sm:px-8 sm:py-28">
         <div className="grid gap-14 lg:grid-cols-[1.2fr_1fr] lg:gap-24">
           <div>
+            <Reveal className="font-pixel text-[10px] text-accent">▸ NEW GAME</Reveal>
             <Lines as="h2" className="font-display text-[clamp(48px,8vw,120px)]" lines={['Let’s make', <>something <span className="text-accent">good</span></>]} />
             <Reveal delay={0.2} className="mt-8 flex flex-wrap items-center gap-x-8 gap-y-3">
               <Magnetic>

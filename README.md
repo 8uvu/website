@@ -31,7 +31,13 @@ bun run build      # dist/client (assets) + dist/portfolio/index.js (Worker)
 
 Motion respects `prefers-reduced-motion`, and the preloader runs once per tab.
 
-## Deploy with Freebuff Sites
+## Deploy
 
-`deploy.json` points at the build output. After `bun run build`, deploy with
-the `sites_deploy` tool from this directory.
+Two hosts, same build (`npm run build`):
+
+- **Freebuff Sites** — `deploy.json` points at the build output; deploy with
+  the `sites_deploy` tool from this directory.
+- **Vercel** — this repo (`github.com/8uvu/website`) is connected to the
+  Vercel project that owns `8uvu.runs-on.dev`. `vercel.json` builds with npm
+  and serves `dist/client`; `api/contact.js` backs the contact form there.
+  Pushing `main` redeploys automatically.

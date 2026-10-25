@@ -33,12 +33,12 @@ export function Home() {
       </section>
 
       {/* Marquee */}
-      <div className="overflow-hidden border-y border-line py-5" aria-hidden>
-        <ul className="font-display flex w-max animate-marquee items-center gap-10 whitespace-nowrap text-[28px] text-fg/70 sm:text-[36px]">
+      <div className="overflow-hidden border-y border-line py-4" aria-hidden>
+        <ul className="font-pixel flex w-max animate-marquee items-center gap-12 whitespace-nowrap text-[12px] text-fg/75 sm:text-[14px]">
           {[...site.marquee, ...site.marquee].map((item, i) => (
-            <li key={i} className="flex items-center gap-10">
+            <li key={i} className="flex items-center gap-12">
               {item}
-              <span className="round size-2 rounded-full bg-accent" />
+              <span className="size-1.5 shrink-0 bg-accent" />
             </li>
           ))}
         </ul>
@@ -46,8 +46,11 @@ export function Home() {
 
       {/* Work */}
       <section id="work" className="mx-auto max-w-[1400px] scroll-mt-20 px-5 pt-24 sm:px-8 sm:pt-32">
-        <div className="flex items-end justify-between">
-          <Lines as="h2" className="font-display text-[44px] sm:text-[64px]" lines={['Games I like']} />
+        <div className="flex items-end justify-between gap-6">
+          <div>
+            <Reveal className="font-pixel text-[10px] text-accent">▸ SELECT</Reveal>
+            <Lines as="h2" className="font-display text-[44px] sm:text-[64px]" lines={['Games I like']} />
+          </div>
           <Reveal className="hidden text-[14px] text-muted sm:block">{projects.length} games, 2000 to 2017</Reveal>
         </div>
         <div className="mt-12 grid gap-x-6 gap-y-14 md:grid-cols-2 lg:gap-x-8 lg:gap-y-20">
@@ -64,6 +67,7 @@ export function Home() {
             <Parallax src="/images/mark.png" alt={site.name} className="aspect-[3/4] max-w-[460px] rounded-image" strength={6} />
           </Reveal>
           <div className="flex flex-col justify-center">
+            <Reveal className="font-pixel text-[10px] text-accent">▸ CODEX</Reveal>
             <Lines
               as="h2"
               className="font-display text-balance text-[40px] sm:text-[56px] lg:text-[64px]"
@@ -106,17 +110,17 @@ export function Home() {
   )
 }
 
-// Slow colour fields behind the hero: the accent, a coral and a warm peach,
-// blurred and drifting, fading into the paper before the intro line. The
-// grain keeps it from reading as a flat gradient.
+// Slow colour fields behind the hero: crimson, deep violet, ember orange and
+// a pale moonset glow, blurred and drifting into the canvas before the intro
+// line. The grain keeps it from reading as a flat gradient.
 function HeroField() {
   return (
     <div aria-hidden className="pointer-events-none absolute inset-0 [mask-image:linear-gradient(to_bottom,#000_60%,transparent_96%)]">
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1.6, ease }} className="absolute inset-0">
-        <div className="round absolute -top-[25%] right-[-12%] h-[95%] w-[70%] animate-drift-a rounded-full bg-[radial-gradient(closest-side,rgb(47_59_255/0.72),transparent)] blur-3xl" />
-        <div className="round absolute -top-[10%] left-[-12%] h-[80%] w-[62%] animate-drift-b rounded-full bg-[radial-gradient(closest-side,rgb(255_106_61/0.62),transparent)] blur-3xl" />
-        <div className="round absolute top-[22%] left-[32%] h-[70%] w-[56%] animate-drift-c rounded-full bg-[radial-gradient(closest-side,rgb(255_196_120/0.7),transparent)] blur-3xl" />
-        <div className="round absolute top-[45%] right-[12%] h-[50%] w-[40%] animate-drift-b rounded-full bg-[radial-gradient(closest-side,rgb(196_170_255/0.55),transparent)] blur-3xl" />
+        <div className="round absolute -top-[25%] right-[-12%] h-[95%] w-[70%] animate-drift-a rounded-full bg-[radial-gradient(closest-side,rgb(97_40_176/0.6),transparent)] blur-3xl" />
+        <div className="round absolute -top-[10%] left-[-12%] h-[80%] w-[62%] animate-drift-b rounded-full bg-[radial-gradient(closest-side,rgb(199_17_63/0.55),transparent)] blur-3xl" />
+        <div className="round absolute top-[22%] left-[32%] h-[70%] w-[56%] animate-drift-c rounded-full bg-[radial-gradient(closest-side,rgb(255_122_61/0.5),transparent)] blur-3xl" />
+        <div className="round absolute top-[45%] right-[12%] h-[50%] w-[40%] animate-drift-b rounded-full bg-[radial-gradient(closest-side,rgb(199_166_255/0.4),transparent)] blur-3xl" />
       </motion.div>
       <div className="grain absolute inset-0" />
     </div>

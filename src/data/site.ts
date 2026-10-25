@@ -25,7 +25,7 @@ export interface Project {
   tint: string
   summary: string
   deliverables: string[]
-  shots?: string[]
+  shots: string[]
   link?: string
   body: string[]
   size: 'large' | 'small'
@@ -39,7 +39,7 @@ export const projects: Project[] = [
     category: 'Action-adventure',
     year: '2000',
     cover: '/images/majoras-mask.jpg',
-    tint: '#e7ddf2',
+    tint: '#241a33',
     summary: 'Three days, one doomed town, and a mask for almost everything.',
     deliverables: ['Nintendo 64'],
     shots: [
@@ -62,7 +62,7 @@ export const projects: Project[] = [
     category: 'Action-adventure',
     year: '2017',
     cover: '/images/breath-of-the-wild.jpg',
-    tint: '#dbe4f0',
+    tint: '#16233a',
     summary: 'The one that turned Hyrule into a place you cross, not a place you visit.',
     deliverables: ['Nintendo Switch', 'Wii U'],
     shots: [
@@ -84,7 +84,7 @@ export const projects: Project[] = [
     category: 'Roguelike',
     year: '2011',
     cover: '/images/isaac.jpg',
-    tint: '#f4ded4',
+    tint: '#2a140f',
     summary: 'Apollyon <3',
     deliverables: ['Steam', 'Nintendo Switch', 'PlayStation', 'Xbox'],
     shots: [
@@ -106,7 +106,7 @@ export const projects: Project[] = [
     category: 'Sandbox',
     year: '2011',
     cover: '/images/minecraft.jpg',
-    tint: '#dce9d6',
+    tint: '#152312',
     summary: 'Infinite blocks, no rules about what to do first — the sandbox everything else gets compared to.',
     deliverables: ['Java Edition', 'Bedrock Edition'],
     shots: [
