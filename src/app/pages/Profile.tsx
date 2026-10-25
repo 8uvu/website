@@ -1,18 +1,14 @@
 import { motion } from 'motion/react'
-import { ArrowRight, Camera, Code2, Eye, Link2, MessageCircle, Music2, Volume2, VolumeX } from 'lucide-react'
-import { useEffect, useRef, useState, type ComponentType } from 'react'
+import { ArrowRight, Eye, Link2, Volume2, VolumeX } from 'lucide-react'
+import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router'
 
 import { experience, projects, site } from '../../data/site'
+import { brandIcons } from '../components/BrandIcons'
 import { Reveal } from '../components/motion'
 
 const ease = [0.22, 1, 0.36, 1] as const
-
-const icons: Record<string, ComponentType<{ className?: string }>> = {
-  GitHub: Code2,
-  Instagram: Camera,
-  TikTok: Music2,
-}
+const icons = brandIcons
 
 export function Profile() {
   return (
@@ -83,7 +79,7 @@ export function Profile() {
                     rel="noreferrer noopener"
                     className="group flex items-center gap-3 rounded-control border border-line bg-surface-2/60 px-4 py-3 transition-all duration-300 hover:-translate-y-0.5 hover:border-line-strong hover:shadow-[0_0_24px_rgb(195_60_85/0.12)]"
                   >
-                    <Icon className="size-4 shrink-0 text-muted transition-colors group-hover:text-fg" />
+                    <Icon className="size-[15px] shrink-0 text-muted transition-colors group-hover:text-fg" />
                     <span className="text-[13.5px] text-muted transition-colors group-hover:text-fg">{s.label}</span>
                   </a>
                 </li>
@@ -154,7 +150,9 @@ export function Profile() {
 /* ── Pieces ─────────────────────────────────────────────────────────────── */
 
 // Vignette + optional custom image/video background (both configurable in
-// src/data/site.ts); the dark overlay keeps text readable either way.
+// src/data/site.ts); the dark overlay keeps text readable either way. With no
+// image set, a layered aurora — deep violet base, three drifting glows and a
+// low fog band — fills the screen.
 function Backdrop() {
   const hasBg = Boolean(site.background.image || site.background.video)
   return (
@@ -169,9 +167,17 @@ function Backdrop() {
           <div className="absolute inset-0 bg-black" style={{ opacity: site.background.overlay }} />
         </>
       ) : (
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1.8, ease }} className="absolute inset-0">
-          <div className="round absolute -top-[12%] left-1/2 h-[70%] w-[80%] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgb(97_40_176/0.22),transparent)] blur-3xl animate-drift-a" />
-          <div className="round absolute top-[30%] left-[8%] h-[60%] w-[50%] rounded-full bg-[radial-gradient(closest-side,rgb(195_60_85/0.16),transparent)] blur-3xl animate-drift-b" />
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 2, ease }} className="absolute inset-0">
+          {/* deep violet base glow behind the card */}
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_45%_at_50%_28%,rgb(76_32_128/0.35),transparent_70%)]" />
+          {/* crimson wisp, upper left */}
+          <div className="animate-drift-b absolute top-[18%] left-[4%] h-[48%] w-[46%] rounded-full bg-[radial-gradient(closest-side,rgb(195_60_85/0.17),transparent)] blur-3xl" />
+          {/* ember glow, lower right */}
+          <div className="animate-drift-c absolute top-[52%] right-[6%] h-[52%] w-[44%] rounded-full bg-[radial-gradient(closest-side,rgb(214_125_74/0.10),transparent)] blur-3xl" />
+          {/* cool counterweight, upper right */}
+          <div className="animate-drift-a absolute top-[8%] right-[10%] h-[44%] w-[40%] rounded-full bg-[radial-gradient(closest-side,rgb(62_78_148/0.16),transparent)] blur-3xl" />
+          {/* low fog band that slowly breathes */}
+          <div className="animate-drift-b absolute bottom-[-14%] left-0 h-[38%] w-full rounded-full bg-[radial-gradient(ellipse_closest-side,rgb(46_36_58/0.5),transparent)] blur-2xl" />
         </motion.div>
       )}
       <div className="vignette absolute inset-0" />
@@ -277,7 +283,7 @@ function CopyProfileLink() {
 
 function CopyHandle({ handle }: { handle: string }) {
   const [copied, setCopied] = useState(false)
-  const Icon = MessageCircle
+  const Icon = brandIcons.Discord ?? ArrowRight
   return (
     <button
       type="button"
@@ -293,7 +299,7 @@ function CopyHandle({ handle }: { handle: string }) {
       className="group flex items-center gap-3 rounded-control border border-line bg-surface-2/60 px-4 py-3 text-left transition-all duration-300 hover:-translate-y-0.5 hover:border-line-strong hover:shadow-[0_0_24px_rgb(195_60_85/0.12)]"
       aria-label={`Copy ${handle} on Discord`}
     >
-      <Icon className={copied ? 'size-4 shrink-0 text-accent' : 'size-4 shrink-0 text-muted transition-colors group-hover:text-fg'} />
+      <Icon className={copied ? 'size-[15px] shrink-0 text-accent' : 'size-[15px] shrink-0 text-muted transition-colors group-hover:text-fg'} />
       <span className="flex-1 text-[13.5px] text-muted transition-colors group-hover:text-fg">{copied ? 'Copied' : 'Discord'}</span>
     </button>
   )
